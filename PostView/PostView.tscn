@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://PostView/PostView.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/Ubuntu-Nerd/Ubuntu Medium Nerd Font Complete.ttf" type="DynamicFontData" id=2]
@@ -87,17 +87,6 @@ VScrollBar/styles/grabber_pressed = SubResource( 17 )
 VScrollBar/styles/scroll = SubResource( 18 )
 VScrollBar/styles/scroll_focus = SubResource( 19 )
 
-[sub_resource type="StyleBoxFlat" id=13]
-content_margin_left = 5.0
-content_margin_right = 5.0
-content_margin_top = 5.0
-content_margin_bottom = 5.0
-bg_color = Color( 0.239216, 0.239216, 0.239216, 0 )
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-
 [node name="CanvasLayer" type="CanvasLayer"]
 visible = false
 script = ExtResource( 1 )
@@ -128,11 +117,10 @@ selection_enabled = true
 [node name="Title" type="Label" parent="PostView"]
 anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = -809.0
 margin_top = 10.0
 margin_right = -10.0
-margin_bottom = -660.0
+margin_bottom = 60.0
 focus_mode = 2
 custom_styles/normal = SubResource( 5 )
 valign = 1
@@ -156,7 +144,7 @@ mouse_filter = 2
 texture = ExtResource( 3 )
 expand = true
 
-[node name="Replies" type="Panel" parent="PostView"]
+[node name="Replies" type="Control" parent="PostView"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -164,7 +152,6 @@ margin_top = 71.0
 margin_right = -819.0
 margin_bottom = -5.0
 theme = SubResource( 12 )
-custom_styles/panel = SubResource( 13 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PostView/Replies"]
 anchor_right = 1.0
@@ -172,8 +159,5 @@ anchor_bottom = 1.0
 scroll_horizontal_enabled = false
 
 [node name="HFlowContainer" type="HFlowContainer" parent="PostView/Replies/ScrollContainer"]
-margin_right = 457.0
-margin_bottom = 644.0
-rect_min_size = Vector2( 457, 644 )
 
 [connection signal="pressed" from="PostView/Button" to="." method="_on_Button_pressed"]

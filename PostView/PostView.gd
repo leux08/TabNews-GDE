@@ -7,7 +7,7 @@ func _ready():
 	TabNewsAPI.connect("REPLIES_RETRIEVED", self, "_load_replies")
 
 func _show(postDic: Dictionary):
-	for children in ReplyCont.get_children(): ReplyCont.remove_child(children)
+	for c in ReplyCont.get_children(): c.queue_free()
 	$PostView/Title.text = ""
 	$PostView/Body.bbcode_text = ""
 	
@@ -25,9 +25,15 @@ func _post_retrieved(postDic):
 func _load_replies(replies):
 	for reply in replies:
 		var Reply = RichTextLabel.new()
-		Reply.bbcode_enabled = true
+		Reply.set_use_bbcode(true)
 		Reply.bbcode_text = reply["body"]
 		Reply.hint_tooltip = reply["owner_username"]
-		Reply.rect_min_size.x = 550
-		Reply.fit_content_height = true
+		Reply.set_fit_content_height(true)
+		Reply.set_selection_enabled(true)
 		ReplyCont.add_child(Reply)
+
+func _process(delta):
+	if ReplyCont.get_child_count() > 0:
+		var Posts = ReplyCont.get_children()
+		for post in Posts:
+			post.rect_min_size.x = $PostView/Replies.rect_size.x
